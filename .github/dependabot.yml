@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly" # Weekly update happens on Monday by default
+    rebase-strategy: "disabled"
+    open-pull-requests-limit: 10
+    target-branch: "shakti/ST-639-add-dependency-update-bot"

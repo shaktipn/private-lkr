@@ -1,0 +1,11 @@
+CREATE TABLE "Metadata"(
+    "id" UUID PRIMARY KEY,
+    "fileName" VARCHAR(1000) NOT NULL,
+    "assetType" VARCHAR(1000) NOT NULL,
+    "fileType" VARCHAR(20) NOT NULL,
+    "fileSize" BIGINT NOT NULL,
+    "isValidated" BOOLEAN NOT NULL DEFAULT FALSE,
+    "uploadedBy" UUID,
+    "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    "modifiedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
