@@ -42,7 +42,7 @@ import kotlin.test.assertFailsWith
 
 internal class ExecuteClientRPCAndValidateInternalServerErrorTest {
     companion object {
-        private val leoRPCRequest = Request(2L)
+        private val leoRPCRequest = Request(1L)
         private const val RPC_PATH = "mock/url"
         private const val SERVER_PORT = 30004
 
