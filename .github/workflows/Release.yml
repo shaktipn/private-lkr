@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Release:
+    runs-on: [self-hosted, linux, ARM64]
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Checkout GitHubActions
+        uses: actions/checkout@v4
+        with:
+          repository: SuryaDigital/GitHubActions
+          path: .github/github-actions
+          ref: main
+          token: ${{ secrets.GH_ACTIONS_TOKEN }}
+
+      - name: Setup Java Environment
+        uses: ./.github/github-actions/setup-java-environment
+        env:
+          SURYA_DIGITAL_LEO_ARTIFACTS_USERNAME: ${{secrets.SURYA_DIGITAL_LEO_ARTIFACTS_USERNAME}}
+          SURYA_DIGITAL_LEO_ARTIFACTS_PASSWORD: ${{secrets.SURYA_DIGITAL_LEO_ARTIFACTS_PASSWORD}}
+
+      - name: Create fat jar
+        run: ./gradlew shadowJar
+
+      - name: Save fat jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: leo-runtime.jar
+          path: leo-runtime/build/libs/leo-runtime.jar
+
+      - name: Determine next version
+        uses: gps/determine-next-version@master
+        id: next_version
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish packages
+        env:
+          NEXT_BUILD_VERSION: ${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
+        run: "./gradlew assemble publish"
+
+      - name: Tag commit
+        uses: gps/tag-commit@master
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: v${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
