@@ -1,6 +1,6 @@
 [versions]
 android = "8.3.0"
-apache_poi = "5.2.5"
+apache_poi = "5.3.0"
 aws_kotlin = "1.2.33"
 aws_sdk = "2.25.29"
 build_info_extractor_gradle = "5.2.0"
