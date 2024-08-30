@@ -10,4 +10,4 @@ updates:
       minor:
         update-types: [minor, patch]
     rebase-strategy: "disabled"
-    open-pull-requests-limit: 200
+    open-pull-requests-limit: 100
