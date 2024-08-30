@@ -4,10 +4,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly" # Weekly update happens on Monday by default
-      groups:
-        major:
-          update-types: [major]
-        minor:
-          update-types: [minor, patch]
+    groups:
+      major:
+        update-types: [major]
+      minor:
+        update-types: [minor, patch]
     rebase-strategy: "disabled"
     open-pull-requests-limit: 200
