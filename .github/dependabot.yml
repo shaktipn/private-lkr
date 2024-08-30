@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
-      interval: "weekly" # Weekly update happens on Monday by default
+      interval: "daily" # Weekly update happens on Monday by default
     groups:
       major:
         update-types: [major]
