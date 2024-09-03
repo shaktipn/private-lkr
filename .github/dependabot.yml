@@ -3,11 +3,11 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
-      interval: "daily" # Weekly update happens on Monday by default
-#     groups:
-#       major:
-#         update-types: [major]
-#       minor:
-#         update-types: [minor, patch]
+      interval: "weekly" # Weekly update happens on Monday by default
+    groups:
+      major:
+        update-types: [major]
+      minor:
+        update-types: [minor, patch]
     rebase-strategy: "disabled"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 2
