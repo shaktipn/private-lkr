@@ -2,7 +2,7 @@
 android = "8.3.0"
 apache_poi = "5.2.5"
 aws_kotlin = "1.2.33"
-aws_sdk = "2.25.29"
+aws_sdk = "2.27.17"
 build_info_extractor_gradle = "5.2.0"
 classgraph = "4.8.165"
 clikt = "3.5.3"
