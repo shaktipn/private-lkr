@@ -39,9 +39,15 @@ jobs:
 #           path: leo-runtime/build/libs/leo-runtime.jar
 
       - name: Tag commit and release
+        id: release
         uses: ./.github/github-actions/tag-version-and-release
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             leo-runtime/build/libs/leo-runtime.jar
             ./README.md
+
+      - name: ECHO
+        run: |
+          echo "Tag= ${{ steps.release.tag }}"
+          echo "release-id= ${{ steps.release.release-id }}"
