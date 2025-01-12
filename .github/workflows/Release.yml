@@ -7,7 +7,7 @@ on:
 
 jobs:
   Release:
-    runs-on: [self-hosted, linux, ARM64]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out source code
@@ -20,7 +20,7 @@ jobs:
         with:
           repository: SuryaDigital/GitHubActions
           path: .github/github-actions
-          ref: main
+          ref: shakti/st-922-changelog
           token: ${{ secrets.GH_ACTIONS_TOKEN }}
 
       - name: Setup Java Environment
@@ -32,25 +32,16 @@ jobs:
       - name: Create fat jar
         run: ./gradlew shadowJar
 
-      - name: Save fat jar
-        uses: actions/upload-artifact@v3
-        with:
-          name: leo-runtime.jar
-          path: leo-runtime/build/libs/leo-runtime.jar
+#       - name: Save fat jar
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: leo-runtime.jar
+#           path: leo-runtime/build/libs/leo-runtime.jar
 
-      - name: Determine next version
-        uses: gps/determine-next-version@master
-        id: next_version
+      - name: Tag commit and release
+        uses: ./.github/github-actions/tag-version-and-release
         with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish packages
-        env:
-          NEXT_BUILD_VERSION: ${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
-        run: "./gradlew assemble publish"
-
-      - name: Tag commit
-        uses: gps/tag-commit@master
-        with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: v${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            leo-runtime/build/libs/leo-runtime.jar
+            ./README.md
